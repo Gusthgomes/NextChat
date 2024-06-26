@@ -109,7 +109,7 @@ const AddFriendDialog = () => {
             />
             <DialogFooter>
               <Button disabled={pending} type="submit">
-                Send
+                Enviar
               </Button>
             </DialogFooter>
           </form>
