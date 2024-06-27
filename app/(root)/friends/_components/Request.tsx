@@ -23,6 +23,10 @@ const Request = ({ id, imageUrl, username, email }: Props) => {
     api.request.deny
   );
 
+  const { mutate: acceptRequest, pending: acceptPending } = useMutationState(
+    api.request.accept
+  );
+
   return (
     <Card className="w-full p-2 flex flex-row items-center justify-between gap-2">
       <div className="flex items-center gap-4 truncate">
@@ -39,13 +43,29 @@ const Request = ({ id, imageUrl, username, email }: Props) => {
       </div>
 
       <div className="flex items-center gap-2">
-        <Button size="icon" disabled={denyPending} onClick={() => {}}>
+        <Button
+          size="icon"
+          disabled={denyPending || acceptPending}
+          onClick={() => {
+            acceptRequest({ id })
+              .then(() => {
+                toast.success("Solicitação aceita com sucesso!");
+              })
+              .catch((error) => {
+                toast.error(
+                  error instanceof ConvexError
+                    ? error.data
+                    : "Um erro inesperado ocorreu!"
+                );
+              });
+          }}
+        >
           <Check />
         </Button>
         <Button
           variant="destructive"
           size="icon"
-          disabled={denyPending}
+          disabled={denyPending || acceptPending}
           onClick={() => {
             denyRequest({ id })
               .then(() => {
