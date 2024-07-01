@@ -132,7 +132,7 @@ export const createGroup = mutation({
     const identity = await ctx.auth.getUserIdentity();
 
     if (!identity) {
-      throw new Error("Unauthorized");
+      throw new Error("Não autorizado");
     }
 
     const currentUser = await getUserByClerkId({
@@ -141,7 +141,7 @@ export const createGroup = mutation({
     });
 
     if (!currentUser) {
-      throw new ConvexError("User not found");
+      throw new ConvexError("Usuário não encontrado");
     }
 
     const conversationId = await ctx.db.insert("conversations", {
@@ -169,7 +169,7 @@ export const deleteGroup = mutation({
     const identity = await ctx.auth.getUserIdentity();
 
     if (!identity) {
-      throw new ConvexError("Unauthorized");
+      throw new ConvexError("Sem autorização");
     }
 
     const curentUser = await getUserByClerkId({
@@ -178,13 +178,13 @@ export const deleteGroup = mutation({
     });
 
     if (!curentUser) {
-      throw new ConvexError("User not found");
+      throw new ConvexError("Usuário não encontrado");
     }
 
     const conversation = await ctx.db.get(args.conversationId);
 
     if (!conversation) {
-      throw new ConvexError("Conversation not found");
+      throw new ConvexError("Conversa não encontrada");
     }
 
     const memberships = await ctx.db
@@ -195,7 +195,7 @@ export const deleteGroup = mutation({
       .collect();
 
     if (!memberships || memberships.length <= 1) {
-      throw new ConvexError("This conversation does not have any members");
+      throw new ConvexError("Esse chat não possui membros!");
     }
 
     const messages = await ctx.db
@@ -232,7 +232,7 @@ export const leaveGroup = mutation({
     const identity = await ctx.auth.getUserIdentity();
 
     if (!identity) {
-      throw new ConvexError("Unauthorized");
+      throw new ConvexError("Sem autorização");
     }
 
     const curentUser = await getUserByClerkId({
@@ -241,13 +241,13 @@ export const leaveGroup = mutation({
     });
 
     if (!curentUser) {
-      throw new ConvexError("User not found");
+      throw new ConvexError("Usuário não encontrado");
     }
 
     const conversation = await ctx.db.get(args.conversationId);
 
     if (!conversation) {
-      throw new ConvexError("Conversation not found");
+      throw new ConvexError("Conversa não encontrada");
     }
 
     const membership = await ctx.db
@@ -260,7 +260,7 @@ export const leaveGroup = mutation({
       .unique();
 
     if (!membership) {
-      throw new ConvexError("You are not a member of this group");
+      throw new ConvexError("Você não é membro desta conversa");
     }
 
     // Delete conversation memberships
