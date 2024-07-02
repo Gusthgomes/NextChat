@@ -29,13 +29,13 @@ const RemoveFriendDialog = ({ conversationId, open, setOpen }: Props) => {
   const handleRemoveFriend = async () => {
     removeFriend({ conversationId })
       .then(() => {
-        toast.success("Amigo revomido!");
+        toast.success("Amigo removido com sucesso!");
       })
       .catch((error) => {
         toast.error(
           error instanceof ConvexError
             ? error.data
-            : "Um erro inesperado ocorreu! Por favor, tente novamente."
+            : "Um erro inesperado ocorreu. Por favor, tente novamente."
         );
       });
   };
@@ -44,15 +44,15 @@ const RemoveFriendDialog = ({ conversationId, open, setOpen }: Props) => {
     <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Você tem certeza ?</AlertDialogTitle>
+          <AlertDialogTitle>Tem certeza?</AlertDialogTitle>
           <AlertDialogDescription>
             Essa ação não pode ser desfeita. Todas as mensagens serão excluídas
-            e você não poderá enviar mensagens a este usuário. Todos os
+            e você não será poderá enviar mensagens a este usuário. Todos os
             bate-papos em grupo ainda funcionam normalmente
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel disabled={pending}>Cancel</AlertDialogCancel>
+          <AlertDialogCancel disabled={pending}>Cancelar</AlertDialogCancel>
           <AlertDialogAction disabled={pending} onClick={handleRemoveFriend}>
             Deletar
           </AlertDialogAction>
