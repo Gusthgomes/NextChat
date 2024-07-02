@@ -41,6 +41,7 @@ const ConversationsLayout = ({ children }: Props) => {
                   imageUrl={conversation.otherMember?.imageUrl || ""}
                   lastMessageSender={conversation.lastMessage?.sender}
                   lastMessageContent={conversation.lastMessage?.content}
+                  unseenCount={conversation.unseenCount}
                 />
               );
             })
