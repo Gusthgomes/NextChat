@@ -112,7 +112,7 @@ export const markRead = mutation({
       .unique();
 
     if (!membership) {
-      throw new ConvexError("Você não é membro desta conversa");
+      throw new ConvexError("Você não é membro deste grupo!");
     }
 
     const lastMessage = await ctx.db.get(args.messageId);
