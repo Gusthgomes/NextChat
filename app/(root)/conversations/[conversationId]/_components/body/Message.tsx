@@ -3,6 +3,7 @@ import { format } from "date-fns";
 import { timeStamp } from "console";
 import { cn } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
 
 type Props = {
   fromCurrentUser: boolean;
@@ -53,6 +54,9 @@ const Message = ({
             <p className="text-wrap break-words whitespace-pre-wrap break-all">
               {content}
             </p>
+          ) : null}
+          {type === "call" ? (
+            <Badge variant="secondary">Joined Call</Badge>
           ) : null}
           <p
             className={cn(`text-xs flex w-full my-1`, {

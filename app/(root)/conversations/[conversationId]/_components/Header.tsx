@@ -7,9 +7,9 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
-import { CircleArrowLeft, Settings } from "lucide-react";
+import { CircleArrowLeft, Phone, Settings, Video } from "lucide-react";
 import Link from "next/link";
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import { cn } from "@/lib/utils";
 
 type Props = {
@@ -20,9 +20,10 @@ type Props = {
     destructive: boolean;
     onClick: () => void;
   }[];
+  setCallType: Dispatch<SetStateAction<"audio" | "video" | null>>;
 };
 
-const Header = ({ imageUrl, name, options }: Props) => {
+const Header = ({ imageUrl, name, options, setCallType }: Props) => {
   return (
     <div>
       <Card className="w-full flex rounded-lg items-center p-2 justify-between">
@@ -37,6 +38,20 @@ const Header = ({ imageUrl, name, options }: Props) => {
           <h2 className="font-semibold">{name}</h2>
         </div>
         <div className="flex gap-2">
+          <Button
+            variant="secondary"
+            size="icon"
+            onClick={() => setCallType("audio")}
+          >
+            <Phone />
+          </Button>
+          <Button
+            variant="secondary"
+            size="icon"
+            onClick={() => setCallType("video")}
+          >
+            <Video />
+          </Button>
           {options ? (
             <DropdownMenu>
               <DropdownMenuTrigger>
